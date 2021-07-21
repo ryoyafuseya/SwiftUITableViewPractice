@@ -39,12 +39,12 @@ struct ContentView: View {
                                 .font(.system(size: 30))
                                 .fontWeight(.heavy)
                     ){
-                        ForEach(self.players[section]) { player in
+                    ForEach(self.players[section]) { player in
                             HStack{
                                 player.image
                                     .resizable()
                                     .scaledToFill()
-                                    .clipShape(Circle())
+                                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                                     .frame(width: 50, height: 50)
                                 Text(player.name)
                                     .font(.headline)
@@ -53,7 +53,7 @@ struct ContentView: View {
                         }
                         
                     }.frame(height: 70)
-                    
+            
                 }
             }.navigationBarTitle(Text("NBA Player"))
         }
@@ -79,12 +79,3 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 
-
-struct ContentView_Previews_2: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Group {
-            Text("Hello, World!")
-            Text("Hello, World!")
-        }/*@END_MENU_TOKEN@*/
-    }
-}
