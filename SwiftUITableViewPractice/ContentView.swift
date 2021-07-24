@@ -39,21 +39,13 @@ struct ContentView: View {
                                 .font(.system(size: 30))
                                 .fontWeight(.heavy)
                     ){
-                    ForEach(self.players[section]) { player in
-                            HStack{
-                                player.image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                                    .frame(width: 50, height: 50)
-                                Text(player.name)
-                                    .font(.headline)
-                                    .padding(.leading, 20)
-                            }
+                        ForEach(self.players[section]) { player in
+                            PlayerRow(player: player, generation:
+                                        self.switchHeaderTitle(section: section))
                         }
                         
                     }.frame(height: 70)
-            
+                    
                 }
             }.navigationBarTitle(Text("NBA Player"))
         }
@@ -71,6 +63,67 @@ struct ContentView: View {
         }
     }
     
+}
+
+struct  PlayerRow: View {
+    
+    let player: Player
+    let generation: String
+    var body: some View {
+        HStack{
+            NavigationLink(destination: PlayerDetail(generation:
+                        generation, player: player)) {
+                player.image
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
+                    .frame(width: 50, height: 50)
+                Text(player.name)
+                    .font(.headline)
+                    .padding(.leading, 20)
+            }
+        }
+    }
+}
+
+struct  PlayerDetail: View {
+    
+    
+    let generation: String
+    let player: Player
+    
+    
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                player.image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 350, height: 400, alignment: .top)
+                    .cornerRadius(20)
+                    .padding(.init(top: 0, leading: 50, bottom: 0, trailing: 50))
+                HStack {
+                    
+                    Text(player.name)
+                        .font(.system(size: 30, weight: .heavy))
+                        .padding(.top, -85)
+                        .foregroundColor(.white)
+                        .padding(.trailing, 30)
+                }
+                .frame(width: 400, height: 40, alignment: .trailing)
+                HStack {
+                    Text("Generation: ")
+                        .font(.system(size: 30, weight: .medium))
+                    Text(generation)
+                        .font(.system(size: 40, weight: .heavy
+                        )).padding(.leading, 30)
+                }.frame(width: 350, height: 40, alignment: .leading)
+                .padding(.leading, 20)
+                Spacer()
+            }.padding(.top, -80)
+        }.navigationBarTitle(Text("Player"), displayMode: .inline)
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
